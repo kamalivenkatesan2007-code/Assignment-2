@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Profile Editor</title>
+<style>
+body{font-family:Arial;margin:20px;}
+input[type=text]{padding:8px;width:250px;margin-bottom:10px;}
+button{padding:8px 15px;}
+#message{color:green;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<h2>User Profile Editor</h2>
+
+<form id="profileForm">
+Name:<br>
+<input type="text" id="name"><br>
+Email:<br>
+<input type="text" id="email"><br>
+Phone:<br>
+<input type="text" id="phone"><br>
+<button type="button" onclick="saveProfile()">Save</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+let user={name:"John Doe", email:"john@example.com", phone:"1234567890"};
+
+function loadProfile(){
+  document.getElementById("name").value=user.name;
+  document.getElementById("email").value=user.email;
+  document.getElementById("phone").value=user.phone;
+}
+
+function saveProfile(){
+  user.name=document.getElementById("name").value;
+  user.email=document.getElementById("email").value;
+  user.phone=document.getElementById("phone").value;
+  document.getElementById("message").innerText="Profile updated successfully!";
+}
+
+window.onload=loadProfile;
+</script>
+
+</body>
+</html>
