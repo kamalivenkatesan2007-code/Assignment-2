@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Quiz</title>
+<style>
+body{font-family:Arial;margin:20px;}
+#quiz-container{max-width:500px;margin:auto;padding:20px;border:1px solid #ccc;background:#f9f9f9;}
+button{padding:10px 15px;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<h2>Online Quiz Application</h2>
+<div id="quiz-container">
+<p id="question"></p>
+<div id="options"></div>
+<button onclick="nextQuestion()">Next</button>
+<p id="result"></p>
+</div>
+
+<script>
+const quiz=[
+{q:"What is HTML?", options:["Language","Database","OS"], answer:"Language"},
+{q:"What is CSS?", options:["Style Sheet","Programming","Browser"], answer:"Style Sheet"},
+{q:"JavaScript is used for?", options:["Backend","Frontend","Both"], answer:"Both"}
+];
+
+let current=0, score=0;
+
+function loadQuestion(){
+  document.getElementById("result").innerHTML="";
+  let q=quiz[current];
+  document.getElementById("question").innerText=q.q;
+  let opts="";
+  q.options.forEach(opt=>{
+    opts+=`<input type="radio" name="option" value="${opt}">${opt}<br>`;
+  });
+  document.getElementById("options").innerHTML=opts;
+}
+
+function nextQuestion(){
+  let selected=document.querySelector('input[name="option"]:checked');
+  if(!selected){alert("Select an option"); return;}
+  if(selected.value===quiz[current].answer) score++;
+  current++;
+  if(current<quiz.length) loadQuestion();
+  else document.getElementById("quiz-container").innerHTML=`<h3>Your Score: ${score}/${quiz.length}</h3>`;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
