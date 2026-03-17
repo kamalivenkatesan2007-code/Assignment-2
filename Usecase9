@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task Manager</title>
+<style>
+body{font-family:Arial;margin:20px;}
+input[type=text]{padding:8px;width:250px;}
+button{padding:8px 15px;margin-left:5px;}
+ul{list-style:none;padding:0;}
+li{padding:8px;background:#f2f2f2;margin-bottom:5px;}
+li button{margin-left:10px;}
+</style>
+</head>
+<body>
+
+<h2>Task Manager</h2>
+<input type="text" id="taskInput" placeholder="Add new task">
+<button onclick="addTask()">Add</button>
+
+<ul id="taskList"></ul>
+
+<script>
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
+function renderTasks(){
+  let list=document.getElementById("taskList");
+  list.innerHTML="";
+  tasks.forEach((task,index)=>{
+    let li=document.createElement("li");
+    li.innerHTML=`${task} <button onclick="editTask(${index})">Edit</button>
+    <button onclick="deleteTask(${index})">Delete</button>`;
+    list.appendChild(li);
+  });
+}
+
+function addTask(){
+  let input=document.getElementById("taskInput").value;
+  if(input===""){alert("Enter a task");return;}
+  tasks.push(input);
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+  document.getElementById("taskInput").value="";
+  renderTasks();
+}
+
+function editTask(index){
+  let newTask=prompt("Edit task:",tasks[index]);
+  if(newTask!==null){
+    tasks[index]=newTask;
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    renderTasks();
+  }
+}
+
+function deleteTask(index){
+  tasks.splice(index,1);
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+  renderTasks();
+}
+
+renderTasks();
+</script>
+
+</body>
+</html>
