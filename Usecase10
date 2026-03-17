@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Real-Time Chat UI</title>
+<style>
+body{font-family:Arial;margin:20px;}
+#chatWindow{border:1px solid #ccc;width:400px;height:300px;padding:10px;overflow-y:auto;background:#f9f9f9;}
+.message{padding:5px 10px;margin:5px 0;border-radius:5px;max-width:70%;}
+.user{background:#d1e7dd;margin-left:auto;}
+.bot{background:#f8d7da;margin-right:auto;}
+input[type=text]{width:300px;padding:8px;}
+button{padding:8px 15px;}
+</style>
+</head>
+<body>
+
+<h2>Real-Time Chat UI</h2>
+<div id="chatWindow"></div>
+<input type="text" id="msgInput" placeholder="Type message">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+function sendMessage(){
+  let input=document.getElementById("msgInput");
+  if(input.value===""){return;}
+  let chat=document.getElementById("chatWindow");
+  
+  let userMsg=document.createElement("div");
+  userMsg.className="message user";
+  userMsg.innerText=input.value;
+  chat.appendChild(userMsg);
+
+  setTimeout(()=>{
+    let botMsg=document.createElement("div");
+    botMsg.className="message bot";
+    botMsg.innerText="Reply: "+input.value;
+    chat.appendChild(botMsg);
+    chat.scrollTop=chat.scrollHeight;
+  },500);
+
+  input.value="";
+  chat.scrollTop=chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
