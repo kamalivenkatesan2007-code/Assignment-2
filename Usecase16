@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Multi-Step Form Wizard</title>
+<style>
+body{font-family:Arial;margin:20px;}
+.step{display:none;}
+.step.active{display:block;}
+button{padding:8px 15px;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<h2>Multi-Step Form Wizard</h2>
+<form id="regForm">
+  <div class="step active">
+    <h3>Step 1</h3>
+    Name: <input type="text" id="name"><br>
+  </div>
+  <div class="step">
+    <h3>Step 2</h3>
+    Email: <input type="text" id="email"><br>
+  </div>
+  <div class="step">
+    <h3>Step 3</h3>
+    Password: <input type="password" id="pass"><br>
+  </div>
+  <button type="button" onclick="nextPrev(1)">Next</button>
+</form>
+<p id="summary"></p>
+
+<script>
+let currentStep=0;
+let formData={};
+
+function showStep(n){
+  let steps=document.querySelectorAll(".step");
+  steps.forEach((s,i)=>s.classList.remove("active"));
+  steps[n].classList.add("active");
+}
+
+function nextPrev(n){
+  let steps=document.querySelectorAll(".step");
+  if(n==1){
+    let input=steps[currentStep].querySelector("input").value;
+    if(input===""){alert("Fill the field"); return;}
+    if(currentStep==0) formData.name=input;
+    if(currentStep==1) formData.email=input;
+    if(currentStep==2) formData.pass=input;
+  }
+  currentStep+=n;
+  if(currentStep>=steps.length){
+    document.getElementById("regForm").style.display="none";
+    document.getElementById("summary").innerText=JSON.stringify(formData,null,2);
+    return;
+  }
+  showStep(currentStep);
+}
+
+showStep(currentStep);
+</script>
+
+</body>
+</html>
