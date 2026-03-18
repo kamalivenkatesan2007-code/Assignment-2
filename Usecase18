@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial;margin:20px;}
+.card{border:1px solid #ccc;padding:10px;margin:10px;}
+</style>
+</head>
+<body>
+
+<h2>Student Dashboard</h2>
+
+<div class="card">
+  <h3>Profile</h3>
+  <p>Name: John Doe</p>
+  <p>Course: Computer Science</p>
+</div>
+
+<div class="card">
+  <h3>Performance</h3>
+  <canvas id="chart"></canvas>
+</div>
+
+<div class="card">
+  <h3>Tasks</h3>
+  <ul>
+    <li>Assignment 1</li>
+    <li>Project Submission</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Notifications</h3>
+  <p>Exam on Monday</p>
+</div>
+
+<script>
+new Chart(document.getElementById("chart"),{
+  type:"line",
+  data:{
+    labels:["Math","Science","English"],
+    datasets:[{
+      label:"Marks",
+      data:[80,70,90],
+      borderWidth:2
+    }]
+  }
+});
+</script>
+
+</body>
+</html>
