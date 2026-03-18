@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dark/Light Mode Toggle</title>
+<style>
+body.light-mode{background:#ffffff;color:#000000;}
+body.dark-mode{background:#121212;color:#ffffff;}
+button{padding:10px 20px;margin:20px;}
+</style>
+</head>
+<body>
+
+<h2>Dark/Light Mode Toggle</h2>
+<button onclick="toggleTheme()">Toggle Theme</button>
+
+<script>
+let theme=localStorage.getItem("theme")||"light-mode";
+document.body.className=theme;
+
+function toggleTheme(){
+  if(document.body.className==="light-mode"){
+    document.body.className="dark-mode";
+    localStorage.setItem("theme","dark-mode");
+  } else{
+    document.body.className="light-mode";
+    localStorage.setItem("theme","light-mode");
+  }
+}
+</script>
+
+</body>
+</html>
