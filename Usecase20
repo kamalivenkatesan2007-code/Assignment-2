@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Complete Front-End Application</title>
+<style>
+body{font-family:Arial;margin:0;}
+nav{background:#333;color:#fff;padding:10px;}
+nav button{margin-right:10px;padding:8px;}
+.section{display:none;padding:20px;}
+.active{display:block;}
+.card{border:1px solid #ccc;padding:10px;margin:10px 0;}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('form')">Form</button>
+  <button onclick="showSection('api')">API Data</button>
+  <button onclick="showSection('tasks')">Tasks</button>
+</nav>
+
+<!-- Home Section -->
+<div id="home" class="section active">
+  <h2>Dashboard</h2>
+  <p>Welcome to the Complete Front-End Application</p>
+</div>
+
+<!-- Form Section -->
+<div id="form" class="section">
+  <h2>User Form</h2>
+  Name: <input type="text" id="name"><br><br>
+  Email: <input type="text" id="email"><br><br>
+  <button onclick="saveUser()">Submit</button>
+  <p id="formMsg"></p>
+</div>
+
+<!-- API Section -->
+<div id="api" class="section">
+  <h2>Live API Data</h2>
+  <button onclick="loadAPI()">Load Bitcoin Price</button>
+  <div id="apiData"></div>
+</div>
+
+<!-- Task Section -->
+<div id="tasks" class="section">
+  <h2>Task Manager</h2>
+  <input type="text" id="taskInput">
+  <button onclick="addTask()">Add</button>
+  <ul id="taskList"></ul>
+</div>
+
+<script>
+// Navigation
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// Form + Local Storage
+function saveUser(){
+  let name=document.getElementById("name").value;
+  let email=document.getElementById("email").value;
+  if(name===""||email===""){
+    document.getElementById("formMsg").innerText="Fill all fields";
+    return;
+  }
+  let user={name,email};
+  localStorage.setItem("user",JSON.stringify(user));
+  document.getElementById("formMsg").innerText="Saved Successfully!";
+}
+
+// API Data
+function loadAPI(){
+  fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+  .then(res=>res.json())
+  .then(data=>{
+    document.getElementById("apiData").innerText=
+    "Bitcoin Price: $"+data.bpi.USD.rate;
+  })
+  .catch(()=>{
+    document.getElementById("apiData").innerText="API Error";
+  });
+}
+
+// Task Manager
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
+function renderTasks(){
+  let list=document.getElementById("taskList");
+  list.innerHTML="";
+  tasks.forEach((t,i)=>{
+    let li=document.createElement("li");
+    li.innerHTML=`${t} <button onclick="delTask(${i})">X</button>`;
+    list.appendChild(li);
+  });
+}
+
+function addTask(){
+  let val=document.getElementById("taskInput").value;
+  if(val==="") return;
+  tasks.push(val);
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+  renderTasks();
+}
+
+function delTask(i){
+  tasks.splice(i,1);
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+  renderTasks();
+}
+
+renderTasks();
+</script>
+
+</body>
+</html>
