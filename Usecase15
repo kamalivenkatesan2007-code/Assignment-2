@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Calendar UI</title>
+<style>
+body{font-family:Arial;margin:20px;}
+#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;width:350px;}
+.day{padding:10px;text-align:center;border:1px solid #ccc;cursor:pointer;}
+.event{background:#ffeb3b;}
+#eventDetail{margin-top:20px;}
+</style>
+</head>
+<body>
+
+<h2>Event Calendar</h2>
+<div id="calendar"></div>
+<div id="eventDetail"></div>
+
+<script>
+const events={"5":"Meeting","12":"Project Deadline","20":"Conference"};
+function generateCalendar(){
+  const calendar=document.getElementById("calendar");
+  calendar.innerHTML="";
+  for(let i=1;i<=30;i++){
+    let day=document.createElement("div");
+    day.className="day";
+    day.innerText=i;
+    if(events[i]) day.classList.add("event");
+    day.onclick=()=>{document.getElementById("eventDetail").innerText=events[i]||"No Events";}
+    calendar.appendChild(day);
+  }
+}
+generateCalendar();
+</script>
+
+</body>
+</html>
