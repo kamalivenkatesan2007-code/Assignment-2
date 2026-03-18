@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>REST API Data Integration</title>
+<style>
+body{font-family:Arial;margin:20px;}
+#dataContainer{border:1px solid #ccc;padding:10px;width:400px;}
+</style>
+</head>
+<body>
+
+<h2>REST API Data Integration</h2>
+<div id="dataContainer">Loading data...</div>
+
+<script>
+fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+.then(response=>response.json())
+.then(data=>{
+  document.getElementById("dataContainer").innerHTML=
+  `Bitcoin Price (USD): $${data.bpi.USD.rate}`;
+})
+.catch(err=>{
+  document.getElementById("dataContainer").innerText="Failed to fetch data";
+});
+</script>
+
+</body>
+</html>
