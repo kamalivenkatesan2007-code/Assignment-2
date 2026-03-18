@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>News Feed Dashboard</title>
+<style>
+body{font-family:Arial;margin:20px;}
+#newsContainer{display:flex;flex-wrap:wrap;gap:15px;}
+.card{border:1px solid #ccc;padding:15px;width:300px;background:#f9f9f9;}
+.card h3{margin:0 0 10px 0;}
+.card p{font-size:14px;}
+.card a{color:blue;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<h2>News Feed Dashboard</h2>
+<div id="newsContainer">Loading news...</div>
+
+<script>
+fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY')
+.then(response=>response.json())
+.then(data=>{
+  let container=document.getElementById("newsContainer");
+  container.innerHTML="";
+  data.articles.forEach(article=>{
+    let card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<h3>${article.title}</h3>
+    <p>${article.description || ''}</p>
+    <a href="${article.url}" target="_blank">Read more</a>`;
+    container.appendChild(card);
+  });
+})
+.catch(err=>{
+  document.getElementById("newsContainer").innerText="Failed to load news";
+});
+</script>
+
+</body>
+</html>
