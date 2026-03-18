@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FAQ Page</title>
+<style>
+body{font-family:Arial;margin:20px;}
+.question{cursor:pointer;padding:10px;background:#f2f2f2;margin-bottom:5px;}
+.answer{display:none;padding:10px;border-left:2px solid #ccc;margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<h2>FAQ Page</h2>
+
+<div class="faq">
+  <div class="question">What is HTML?</div>
+  <div class="answer">HTML is the standard markup language for creating web pages.</div>
+  <div class="question">What is CSS?</div>
+  <div class="answer">CSS is used to style HTML elements and design web pages.</div>
+  <div class="question">What is JavaScript?</div>
+  <div class="answer">JavaScript is a programming language used for web development to make pages interactive.</div>
+</div>
+
+<script>
+let questions=document.querySelectorAll(".question");
+questions.forEach(q=>{
+  q.addEventListener("click",()=>{
+    let ans=q.nextElementSibling;
+    ans.style.display=(ans.style.display==="block")?"none":"block";
+  });
+});
+</script>
+
+</body>
+</html>
