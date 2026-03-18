@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard with Charts</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial;margin:20px;}
+canvas{max-width:600px;}
+</style>
+</head>
+<body>
+
+<h2>Dashboard with Charts</h2>
+<canvas id="myChart"></canvas>
+
+<script>
+const ctx=document.getElementById('myChart');
+
+new Chart(ctx,{
+  type:'bar',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','May'],
+    datasets:[{
+      label:'Sales Data',
+      data:[12,19,8,15,10],
+      borderWidth:1
+    }]
+  },
+  options:{
+    scales:{
+      y:{beginAtZero:true}
+    }
+  }
+});
+</script>
+
+</body>
+</html>
